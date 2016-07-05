@@ -9,12 +9,17 @@ License: GPLv2 or later
 */
 
 if (!is_admin()) {
+	session_start();
 
 	add_filter('locale', 'set_my_locale');
 	function set_my_locale($lang) {
 
 	    if (isset($_GET['locale'])) {
-	    	return $_GET['locale'];
+	    	$_SESSION['locale'] = $_GET['locale'];
+    	}
+
+    	if (isset($_SESSION['locale'])) {
+	    	return $_SESSION['locale'];
 	  	} else {
 	    	return $lang;
 	  	}
